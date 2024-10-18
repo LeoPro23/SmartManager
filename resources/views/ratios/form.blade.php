@@ -4,10 +4,36 @@
 
 @section('contenido')
     <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Calculadora de Ratios Financieros</h1>
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Calculadora de Ratios Financieros</h1>
 
         <form action="{{ route('ratios.calculate') }}" method="POST" class="space-y-6">
             @csrf
+
+            <!-- Campos del contexto de la empresa -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="nombre_empresa" class="block text-sm font-medium text-gray-700">Nombre de la Empresa</label>
+                    <input type="text" name="nombre_empresa" id="nombre_empresa" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+
+                <div>
+                    <label for="descripcion_empresa" class="block text-sm font-medium text-gray-700">Descripción de la Empresa</label>
+                    <textarea name="descripcion_empresa" id="descripcion_empresa" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required></textarea>
+                </div>
+
+                <div>
+                    <label for="sector" class="block text-sm font-medium text-gray-700">Sector</label>
+                    <input type="text" name="sector" id="sector" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+
+                <div>
+                    <label for="anos_existencia" class="block text-sm font-medium text-gray-700">Años de Existencia</label>
+                    <input type="number" name="anos_existencia" id="anos_existencia" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+            </div>
+
+            <br>
+            <div class="text-2xl font-bold text-gray-800 mb-6 text-center">Datos financieros</div>
 
             <!-- Campos de datos financieros -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
