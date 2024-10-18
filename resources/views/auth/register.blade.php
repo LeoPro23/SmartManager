@@ -5,6 +5,10 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <div class="text-center text-2xl font-bold mb-8">
+            Registrate
+        </div>
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />

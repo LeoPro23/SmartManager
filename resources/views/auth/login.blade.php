@@ -8,6 +8,10 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <div class="text-center text-2xl font-bold mb-8">
+            Iniciar Sesión
+        </div>
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
