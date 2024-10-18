@@ -1,3 +1,6 @@
+@extends('layout.plantilla')
+
+@section('contenido')
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -35,7 +38,7 @@
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                    {{ __('Olvidaste la Contraseña?') }}
                 </a>
             @endif
 
@@ -43,5 +46,17 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <!-- Register option -->
+        <div class="flex items-center justify-center mt-4">
+            @if (Route::has('register'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register') }}">
+                    {{ __('Tienes una cuenta? Registrate aqui') }}
+                </a>
+            @endif
+        </div>
+
     </form>
 </x-guest-layout>
+
+@endsection

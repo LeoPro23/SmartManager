@@ -3,12 +3,27 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CalculadoraController;
+use App\Http\Controllers\RatioController;
+use App\Http\Controllers\FinancialController;
 
-/*
-Route::get('/welcome', function () {
-    return view('welcome');
+
+Route::get('/ratios', function () {
+    return view('ratios.form');
+})->middleware('auth')->name('ratios.form');
+
+Route::post('/ratios/calculate', [FinancialController::class, 'calculateAndInterpretRatios'])
+    ->middleware('auth')
+    ->name('ratios.calculate');
+
+
+// LEO
+Route::middleware('auth')->group(function () {
+    Route::get('/calculadorformula', [CalculadoraController::class, 'show'])->name('calculadorformula');
+    Route::post('/calcularformula', [CalculadoraController::class, 'calcular'])->name('calcularformula');
 });
-*/
+
+
 
 // Ruta raíz de tu aplicación
 Route::get('/', [ArticuloController::class, 'inicio'])->name('inicio');
