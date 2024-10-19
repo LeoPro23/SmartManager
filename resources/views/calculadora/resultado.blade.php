@@ -8,7 +8,7 @@
 
         <p><strong>Fórmula seleccionada:</strong> {{ $formula }}</p>
         <p><strong>Monto Inicial:</strong> {{ $montoInicial }}</p>
-        <p><strong>Plazo (años):</strong> {{ $plazo }}</p>
+        <p><strong>Plazo ({{ $periodoTasa}}):</strong> {{ $plazo }}</p>
         <p><strong>Tasa de Interés:</strong> {{ $tasaInteres }}%</p>
 
         <p class="mt-4 text-2xl"><strong>Resultado del cálculo:</strong> {{ $resultado }}</p>
@@ -27,7 +27,7 @@
         @endif
 
         @if($formula == 'FDFA' && isset($datosExtras['pago_anual']))
-            <p><strong>Pago Anual:</strong> {{ $datosExtras['pago_anual'] }}</p>
+            <p><strong>Pago:</strong> {{ $datosExtras['pago_anual'] }}</p>
         @endif
 
         @if($formula == 'FAS' && isset($datosExtras['valor_actual']))
@@ -35,7 +35,7 @@
         @endif
 
         @if($formula == 'FRC' && isset($datosExtras['pago_anual']))
-            <p><strong>Pago Anual:</strong> {{ $datosExtras['pago_anual'] }}</p>
+            <p><strong>Pago:</strong> {{ $datosExtras['pago_anual'] }}</p>
         @endif
 
         <a href="{{ route('calculadorformula') }}" class="text-blue-600 hover:underline mt-4">Volver a la calculadora</a>

@@ -13,13 +13,21 @@ class CalculadoraController extends Controller
 
     public function calcular(Request $request)
     {
+        // Get inputs
         $formula = $request->input('formula');
         $montoInicial = $request->input('monto_inicial');
         $plazo = $request->input('plazo');
-        $tasaInteres = $request->input('tasa_interes') / 100; // Se convierte el porcentaje a decimal
+        $tasaInteres = $request->input('tasa_interes') / 100; // convert to decimal
+        $periodicidadPlazo = $request->input('periodicidad_plazo'); // e.g., Anual, Mensual
+        $periodicidadTasa = $request->input('periodicidad_tasa'); // e.g., Anual, Mensual
+
+        // Adjust interest rate and term based on periodicity
+        list($tasaInteres, $plazo) = $this->ajustarPorPeriodicidad($tasaInteres, $plazo, $periodicidadPlazo, $periodicidadTasa);
+        
         $resultado = 0;
         $datosExtras = [];
 
+        // Financial formulas
         switch ($formula) {
             case 'FSC': // Factor Simple de Capitalización
                 $resultado = $montoInicial * pow(1 + $tasaInteres, $plazo);
@@ -67,8 +75,40 @@ class CalculadoraController extends Controller
             'formula' => $formula,
             'montoInicial' => $montoInicial,
             'plazo' => $plazo,
-            'tasaInteres' => $tasaInteres * 100, // Devolvemos el valor en porcentaje
+            'tasaInteres' => $tasaInteres * 100, // return as percentage
             'datosExtras' => $datosExtras,
+            'periodoPlazo' => $periodicidadPlazo,
+            'periodoTasa' => $periodicidadTasa,
         ]);
+    }
+
+    private function ajustarPorPeriodicidad($tasaInteres, $plazo, $periodicidadPlazo, $periodicidadTasa)
+    {
+        // Convert all to monthly basis
+        switch ($periodicidadTasa) {
+            case 'Anual':
+                $tasaInteres = $tasaInteres / 12;
+                break;
+            case 'Semestral':
+                $tasaInteres = $tasaInteres / 6;
+                break;
+            case 'Trimestral':
+                $tasaInteres = $tasaInteres / 3;
+                break;
+        }
+
+        switch ($periodicidadPlazo) {
+            case 'Anual':
+                $plazo = $plazo * 12;
+                break;
+            case 'Semestral':
+                $plazo = $plazo * 6;
+                break;
+            case 'Trimestral':
+                $plazo = $plazo * 3;
+                break;
+        }
+
+        return [$tasaInteres, $plazo];
     }
 }
